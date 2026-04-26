@@ -71,7 +71,7 @@ for r in resultats:
 ecrire_fichier_csv("resultats_final.csv", lignes_sortie)
 print(f"\n Fichier 'resultats_final.csv' créé avec succès !")
 
-
+# BONUS : Graphique
 try:
     import matplotlib.pyplot as plt
     
@@ -79,26 +79,12 @@ try:
     ca_nets = [r[5] for r in resultats]
     
     plt.figure(figsize=(10, 6))
-    bars = plt.bar(ids, ca_nets, color=['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'])
-    plt.title('📊 Chiffre d\'affaires net par produit', fontsize=14)
-    plt.xlabel('ID du produit', fontsize=12)
-    plt.ylabel('CA Net (€)', fontsize=12)
+    plt.bar(ids, ca_nets, color='skyblue')
+    plt.title('Chiffre d\'affaires net par produit')
+    plt.xlabel('ID Produit')
+    plt.ylabel('CA Net (€)')
+    plt.savefig('graphique.png')  # <-- CECI CRÉE LE FICHIER
+    print(" Graphique sauvegardé dans 'graphique.png'")
     
-    # Ajouter les valeurs sur les barres
-    for bar, valeur in zip(bars, ca_nets):
-        plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1, 
-                 f'{valeur:.0f}€', ha='center', fontsize=10)
-    
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-    plt.tight_layout()
-    plt.savefig('graphique.png', dpi=150)
-    print("📊 Graphique sauvegardé dans 'graphique.png'")
-    plt.show()
-    
-except ImportError:
-    print("\n⚠️ Bonus graphique : Pour activer le graphique, installe matplotlib :")
-    print("   pip install matplotlib")
-except Exception as e:
-    print(f"\n⚠️ Erreur graphique : {e}")
-
-print("\n🎉 Analyse terminée !")
+except:
+    print("Installe matplotlib avec : pip install matplotlib")
