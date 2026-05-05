@@ -16,7 +16,26 @@ lignes = lire_fichier_csv("ventes.csv")
 entete = lignes[0].strip()
 donnees = lignes[1:]
 
-print(f" {len(donnees)} produits trouvés\n")
+# Filtrer les lignes vides
+donnees = [l for l in donnees if l.strip() != ""]
+
+total_disponible = len(donnees)
+print(f" {total_disponible} produits disponibles dans le fichier\n")
+
+# ── SAISIE UTILISATEUR ──────────────────────────────────────
+while True:
+    try:
+        n = int(input(f"Combien de produits voulez-vous analyser ? (1 à {total_disponible}) : "))
+        if 1 <= n <= total_disponible:
+            break
+        else:
+            print(f" Veuillez entrer un nombre entre 1 et {total_disponible}.")
+    except ValueError:
+        print(" Entrée invalide. Veuillez entrer un nombre entier.")
+
+donnees = donnees[:n]
+print(f"\n Analyse des {n} premiers produits...\n")
+# ────────────────────────────────────────────────────────────
 
 resultats = []
 ca_total = 0
@@ -24,30 +43,22 @@ meilleur_ca = -1
 id_meilleur_produit = None
 
 for ligne in donnees:
-    if ligne.strip() == "":
-        continue
-    
-    # Découper la ligne
     valeurs = ligne.strip().split(',')
     id_produit = int(valeurs[0])
     prix = float(valeurs[1])
     quantite = int(valeurs[2])
     remise = float(valeurs[3])
     
-    # Calculs
     ca_brut = prix * quantite
     ca_net = ca_brut * (1 - remise / 100)
     tva = ca_net * 0.20
     
-    # Total
     ca_total = ca_total + ca_net
     
-    # Meilleur produit
     if ca_net > meilleur_ca:
         meilleur_ca = ca_net
         id_meilleur_produit = id_produit
     
-    # Stocker
     resultats.append([id_produit, prix, quantite, remise, ca_brut, ca_net, tva])
 
 print("=" * 50)
@@ -61,17 +72,15 @@ for r in resultats:
 
 print("-" * 65)
 print(f"\n CHIFFRE D'AFFAIRES TOTAL : {ca_total:.2f} €")
-print(f"PRODUIT LE PLUS RENTABLE : ID {id_meilleur_produit} (CA Net = {meilleur_ca:.2f} €)")
+print(f" PRODUIT LE PLUS RENTABLE : ID {id_meilleur_produit} (CA Net = {meilleur_ca:.2f} €)")
 
 lignes_sortie = ["ID,Prix,Quantité,Remise,CA_Brut,CA_Net,TVA"]
-
 for r in resultats:
     lignes_sortie.append(f"{r[0]},{r[1]},{r[2]},{r[3]},{r[4]:.2f},{r[5]:.2f},{r[6]:.2f}")
 
 ecrire_fichier_csv("resultats_final.csv", lignes_sortie)
 print(f"\n Fichier 'resultats_final.csv' créé avec succès !")
 
-# BONUS : Graphique
 try:
     import matplotlib.pyplot as plt
     
@@ -80,11 +89,11 @@ try:
     
     plt.figure(figsize=(10, 6))
     plt.bar(ids, ca_nets, color='skyblue')
-    plt.title('Chiffre d\'affaires net par produit')
+    plt.title(f'Chiffre d\'affaires net par produit (top {n})')
     plt.xlabel('ID Produit')
     plt.ylabel('CA Net (€)')
-    plt.savefig('graphique.png')  # <-- CECI CRÉE LE FICHIER
+    plt.savefig('graphique.png')
     print(" Graphique sauvegardé dans 'graphique.png'")
     
 except:
-    print("Installe matplotlib avec : pip install matplotlib")
+    print(" Installe matplotlib avec : pip install matplotlib")
