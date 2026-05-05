@@ -42,7 +42,27 @@ git clone <lien_du_projet>
 cd nom_du_projet
 ```
 
-3. Vérifier que le fichier `ventes.csv` est présent dans le dossier.
+3. **Créer un environnement virtuel** :
+
+**Sur Windows :**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**Sur macOS/Linux :**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+4. **Installer les dépendances** :
+
+```bash
+pip install -r requirements.txt
+```
+
+5. Vérifier que le fichier `ventes.csv` est présent dans le dossier.
 
 ---
 
