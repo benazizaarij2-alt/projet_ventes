@@ -1,3 +1,5 @@
+import random
+
 def lire_fichier_csv(nom_fichier):
     """Lit un fichier CSV et retourne les données"""
     with open(nom_fichier, 'r', encoding='utf-8') as f:
@@ -25,16 +27,39 @@ print(f" {total_disponible} produits disponibles dans le fichier\n")
 # ── SAISIE UTILISATEUR ──────────────────────────────────────
 while True:
     try:
-        n = int(input(f"Combien de produits voulez-vous analyser ? (1 à {total_disponible}) : "))
-        if 1 <= n <= total_disponible:
+        n = int(input(f"Combien de produits voulez-vous analyser ? ({total_disponible} disponibles) : "))
+        if n >= 1:
             break
         else:
-            print(f" Veuillez entrer un nombre entre 1 et {total_disponible}.")
+            print(" Veuillez entrer un nombre supérieur à 0.")
     except ValueError:
         print(" Entrée invalide. Veuillez entrer un nombre entier.")
 
+# Si n > total_disponible, ajouter des produits aléatoires
+if n > total_disponible:
+    print(f"\n ⚠ {n - total_disponible} produits supplémentaires seront générés aléatoirement...\n")
+    
+    # Trouver le plus grand ID existant
+    ids_existants = [int(d.strip().split(',')[0]) for d in donnees]
+    max_id = max(ids_existants) if ids_existants else 0
+    
+    # Générer des produits aléatoires
+    for i in range(n - total_disponible):
+        max_id += 1
+        prix = round(random.uniform(10, 500), 2)
+        quantite = random.randint(1, 100)
+        remise = random.randint(0, 50)
+        
+        nouvelle_ligne = f"{max_id},{prix},{quantite},{remise}"
+        donnees.append(nouvelle_ligne)
+    
+    # Mettre à jour le fichier ventes.csv
+    lignes_ventes = [entete] + donnees
+    ecrire_fichier_csv("ventes.csv", lignes_ventes)
+    print(" Fichier 'ventes.csv' mis à jour avec les nouveaux produits\n")
+
 donnees = donnees[:n]
-print(f"\n Analyse des {n} premiers produits...\n")
+print(f"\n Analyse des {n} produits...\n")
 # ────────────────────────────────────────────────────────────
 
 resultats = []
