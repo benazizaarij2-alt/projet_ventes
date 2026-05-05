@@ -1,70 +1,75 @@
-# Projet Ventes - PFA
+# Analyse des ventes CSV
 
-## Description
-Outil d'analyse de ventes automatisé pour le projet PFA. Ce programme permet d'analyser et d'évaluer les performances commerciales en calculant les chiffres d'affaires et en générant des rapports détaillés.
+## 1. Description
 
-## Fonctionnalités principales
+Ce projet est un programme Python permettant de lire un fichier CSV contenant des informations sur des produits (identifiant, prix, quantité, remise).
+Il calcule pour chaque produit :
 
-- **Lecture de données** : Import des données de ventes depuis un fichier CSV
-- **Génération aléatoire** : Si l'utilisateur demande plus de produits que disponibles, le programme génère automatiquement des produits aléatoires
-- **Calculs financiers** : 
-  - Chiffre d'affaires brut (CA Brut = Prix × Quantité)
-  - Chiffre d'affaires net après remise (CA Net)
-  - Calcul de la TVA (20%)
-- **Rapport détaillé** : Affichage d'un tableau récapitulatif par produit
-- **Persistance des données** : Mise à jour du fichier `ventes.csv` avec les produits générés
-- **Export des résultats** : Sauvegarde des analyses dans `resultats_final.csv`
-- **Visualisation graphique** : Génération d'un graphique en barres du CA net par produit
+* le chiffre d’affaires brut
+* le chiffre d’affaires net après remise
+* la TVA (20%)
 
-## Comment utiliser ?
+Le programme affiche ensuite les résultats sous forme de tableau, calcule le chiffre d’affaires total, identifie le produit le plus rentable, génère un fichier de sortie CSV et crée un graphique.
 
-### 1. Préparer les données
-Crée un fichier `ventes.csv` avec la structure suivante :
-```
-ID,Prix,Quantité,Remise
-1,50.00,10,5
-2,75.50,20,10
-...
-```
+---
 
-### 2. Lancer le programme
-```bash
-python main.py
-```
+## 2. Prérequis
 
-### 3. Saisir le nombre de produits
-Le programme demande : *"Combien de produits voulez-vous analyser ?"*
-- Entrez un nombre ≥ 1
-- Si le nombre dépasse les produits disponibles, des produits seront générés aléatoirement
+Avant d’exécuter le projet, il est nécessaire d’installer :
 
-## Fichiers d'entrée/sortie
+* Python 3.x
+* La bibliothèque matplotlib (pour le graphique)
 
-| Fichier | Type | Description |
-|---------|------|-------------|
-| `ventes.csv` | Entrée/Sortie | Données des ventes (mis à jour avec les produits générés) |
-| `resultats_final.csv` | Sortie | Rapport détaillé des analyses |
-| `graphique.png` | Sortie | Graphique en barres du CA net |
+Installation de matplotlib :
 
-## Colonnes du rapport
-
-- **ID** : Identifiant du produit
-- **Prix** : Prix unitaire (€)
-- **Qté** : Quantité vendue
-- **Remise** : Pourcentage de remise
-- **CA Brut** : Chiffre d'affaires avant remise (€)
-- **CA Net** : Chiffre d'affaires après remise (€)
-- **TVA** : Taxe sur la valeur ajoutée 20% (€)
-
-## Dépendances
-
-- Python 3.x
-- matplotlib (pour la génération de graphiques)
-
-Installez matplotlib si nécessaire :
 ```bash
 pip install matplotlib
 ```
 
-## Exemple de graphique
+---
 
-![Graphique des ventes](graphique.png)
+## 3. Installation
+
+1. Télécharger ou cloner le projet depuis le dépôt GitHub :
+
+```bash
+git clone <lien_du_projet>
+```
+
+2. Accéder au dossier du projet :
+
+```bash
+cd nom_du_projet
+```
+
+3. Vérifier que le fichier `ventes.csv` est présent dans le dossier.
+
+---
+
+## 4. Utilisation
+
+1. Lancer le programme avec la commande :
+
+```bash
+python main.py
+```
+
+2. Saisir le nombre de produits à analyser lorsque demandé.
+
+3. Le programme :
+
+* affiche les résultats dans la console
+* calcule le chiffre d’affaires total
+* indique le produit le plus rentable
+* génère un fichier `resultats_final.csv`
+* crée un graphique enregistré sous le nom `graphique.png`
+
+---
+
+## 5. Auteurs
+
+Projet réalisé par :
+
+* Arij Ben aziza
+Rami bra
+Issam ammouri
