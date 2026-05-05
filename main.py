@@ -37,7 +37,7 @@ while True:
 
 # Si n > total_disponible, ajouter des produits aléatoires
 if n > total_disponible:
-    print(f"\n ⚠ {n - total_disponible} produits supplémentaires seront générés aléatoirement...\n")
+    print(f"\n  {n - total_disponible} produits supplémentaires seront générés aléatoirement...\n")
     
     # Trouver le plus grand ID existant
     ids_existants = [int(d.strip().split(',')[0]) for d in donnees]
