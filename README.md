@@ -93,3 +93,6 @@ Projet réalisé par :
 * Arij Ben aziza
 Rami bra
 Issam ammouri
+
+## git link
+git clone https://github.com/benazizaarij2-alt/projet_ventes
